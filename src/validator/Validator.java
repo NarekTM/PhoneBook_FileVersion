@@ -12,7 +12,7 @@ public class Validator {
     public static final Pattern VALID_EMAIL_PATTERN =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
-    public static boolean isValidRange(int min, int max, int choice) {
+    public static boolean isValidChoice(int min, int max, int choice) {
             return (choice>=min && choice<=max);
     }
 
