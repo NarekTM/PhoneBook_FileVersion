@@ -1,8 +1,10 @@
 package service;
 
 import models.Contact;
+import models.EmailType;
 import models.PhoneNumberType;
 import models.pairs.IdAndContactNamePair;
+import models.pairs.PhoneNumberTypeAndPhoneNumberPair;
 
 import static validator.GetValidInputs.*;
 import static contacts.PhoneBookDB.*;
@@ -17,10 +19,19 @@ public class ContactService {
             switch (createChoice) {
                 case 1:
                     showPhoneNumberTypes();
+                    int phoneNumberTypeChoice = validPhoneNumberTypeChoice();
+                    String phoneNumber = validPhoneNumber();
+                    contact.addElementToPhoneNumbers(phoneNumberTypeChoice, phoneNumber);
                     break;
                 case 2:
+                    showEmailTypes();
+                    int emailTypeChoice = validEmailTypeChoice();
+                    String email = validEmail();
+                    contact.addElementToEmails(emailTypeChoice, email);
                     break;
                 case 3:
+                    String companyName = validCompanyName();
+                    contact.setCompanyName(companyName);
                     break;
                 case 0:
                     addIdCntNamePairAndContactToContacts(idAndContactNamePair, contact);
@@ -28,6 +39,18 @@ public class ContactService {
                     return;
             }
         }
+    }
+
+    public void search(String field) {
+
+    }
+
+    public void update() {
+
+    }
+
+    public void delete() {
+
     }
 
     private void showActionsListForCreate() {
@@ -41,23 +64,16 @@ public class ContactService {
     private void showPhoneNumberTypes() {
         System.out.println("Enter the appropriate line number to choose phone number label you want:");
         int number = 0;
-        PhoneNumberType[] phoneNumberTypes = PhoneNumberType.values();
-        for (PhoneNumberType phoneNumberType : phoneNumberTypes) {
+        for (PhoneNumberType phoneNumberType : PhoneNumberType.values()) {
             System.out.println(++number + ". " + phoneNumberType);
         }
     }
 
-    public void update() {
-
+    private void showEmailTypes() {
+        System.out.println("Enter the appropriate line number to choose email label you want:");
+        int number = 0;
+        for (EmailType emailType : EmailType.values()) {
+            System.out.println(++number + ". " + emailType);
+        }
     }
-
-    public void delete() {
-
-    }
-
-    public void search(String field) {
-
-    }
-
-
 }

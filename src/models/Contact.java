@@ -34,4 +34,18 @@ public class Contact {
     public void setEmails(List<EmailTypeAndEmailPair> emails) {
         this.emails = emails;
     }
+
+    public void addElementToPhoneNumbers(int phoneNumberTypeChoice, String phoneNumber) {
+        PhoneNumberType phoneNumberType = PhoneNumberType.findById(phoneNumberTypeChoice);
+        PhoneNumberTypeAndPhoneNumberPair phoneNumberTypeAndPhoneNumberPair =
+                new PhoneNumberTypeAndPhoneNumberPair(phoneNumberType, phoneNumber);
+        phoneNumbers.add(phoneNumberTypeAndPhoneNumberPair);
+    }
+
+    public void addElementToEmails(int emailTypeChoice, String email) {
+        EmailType emailType = EmailType.findById(emailTypeChoice);
+        EmailTypeAndEmailPair emailTypeAndEmailPair =
+                new EmailTypeAndEmailPair(emailType, email);
+        emails.add(emailTypeAndEmailPair);
+    }
 }

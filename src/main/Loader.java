@@ -14,32 +14,32 @@ public class Loader {
         showMenu();
 
         while (true) {
-            String menuChoice = validMenuChoice();
+            int menuChoice = validMenuChoice();
 
             ContactService contactService = new ContactService();
 
             switch (menuChoice) {
-                case "1":
+                case 1:
                     String contactName = validContactName();
                     contactService.create(contactName);
                     break;
-                case "2":
+                case 2:
                     contactService.search("aaaaa");
                     break;
-                case "3":
+                case 3:
                     contactService.update();
                     break;
-                case "4":
+                case 4:
                     contactService.delete();
                     break;
-                case "5":
+                case 5:
                     TreeMap<IdAndContactNamePair, Contact> contacts = PhoneBookDB.getContacts();
                     showContacts(contacts);
                     break;
-                case "9":
+                case 6:
                     showMenu();
                     break;
-                case "0":
+                case 0:
                     System.exit(0);
             }
         }
@@ -51,10 +51,9 @@ public class Loader {
                 "Enter 3 to update a contact.\n" +
                 "Enter 4 to delete a contact.\n" +
                 "Enter 5 to view contacts list.\n" +
-                "Enter 9 to view the menu list.\n" +
+                "Enter 6 to view the menu list.\n" +
                 "Enter 0 to exit from application.");
     }
-
 
 
     //This method maybe needs to change return type to String
