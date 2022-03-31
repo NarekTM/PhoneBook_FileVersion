@@ -16,4 +16,9 @@ public enum PhoneNumberType {
     public String getType() {
         return this.type;
     }
+
+    @Override
+    public String toString() {
+        return type;
+    }
 }

@@ -1,18 +1,18 @@
 package contacts;
 
 import models.Contact;
-import models.pairs.IdContactNamePair;
+import models.pairs.IdAndContactNamePair;
 
 import java.util.*;
 
 public class PhoneBookDB {
-    private static final TreeMap<IdContactNamePair, Contact> CONTACTS = new TreeMap<>();
+    private static final TreeMap<IdAndContactNamePair, Contact> CONTACTS = new TreeMap<>();
 
-    public static TreeMap<IdContactNamePair, Contact> getContacts() {
+    public static TreeMap<IdAndContactNamePair, Contact> getContacts() {
         return CONTACTS;
     }
 
-    public static void addKeyAndValueToContacts(IdContactNamePair idContactPair, Contact contact) {
+    public static void addIdCntNamePairAndContactToContacts(IdAndContactNamePair idAndContactPair, Contact contact) {
 
     }
 }

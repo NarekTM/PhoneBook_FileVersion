@@ -2,32 +2,26 @@ package main;
 
 import contacts.PhoneBookDB;
 import models.Contact;
-import models.pairs.IdContactNamePair;
+import models.pairs.IdAndContactNamePair;
 import service.ContactService;
 
-import java.util.Scanner;
 import java.util.TreeMap;
 
-import static validator.Validator.*;
+import static validator.GetValidInputs.*;
 
 public class Loader {
     public static void start() {
         showMenu();
 
-        Scanner scanner = new Scanner(System.in);
-        String choice = "-1";
-
         while (true) {
-            while (!isValidChoice(choice)) {
-                System.out.print("Enter your choice: ");
-                choice = scanner.nextLine();
-            }
+            String menuChoice = validMenuChoice();
 
             ContactService contactService = new ContactService();
 
-            switch (choice) {
+            switch (menuChoice) {
                 case "1":
-                    contactService.create();
+                    String contactName = validContactName();
+                    contactService.create(contactName);
                     break;
                 case "2":
                     contactService.search("aaaaa");
@@ -39,7 +33,7 @@ public class Loader {
                     contactService.delete();
                     break;
                 case "5":
-                    TreeMap<IdContactNamePair, Contact> contacts = PhoneBookDB.getContacts();
+                    TreeMap<IdAndContactNamePair, Contact> contacts = PhoneBookDB.getContacts();
                     showContacts(contacts);
                     break;
                 case "9":
@@ -52,17 +46,19 @@ public class Loader {
     }
 
     private static void showMenu() {
-        System.out.println("Enter 1 to add a new contact.");
-        System.out.println("Enter 2 to search a contact.");
-        System.out.println("Enter 3 to update a contact.");
-        System.out.println("Enter 4 to delete a contact.");
-        System.out.println("Enter 5 to view contacts list.");
-        System.out.println("Enter 9 to view the menu list.");
-        System.out.println("Enter 0 to exit from application");
+        System.out.println("Enter 1 to add a new contact.\n" +
+                "Enter 2 to search a contact.\n" +
+                "Enter 3 to update a contact.\n" +
+                "Enter 4 to delete a contact.\n" +
+                "Enter 5 to view contacts list.\n" +
+                "Enter 9 to view the menu list.\n" +
+                "Enter 0 to exit from application.");
     }
 
+
+
     //This method maybe needs to change return type to String
-    private static void showContacts(TreeMap<IdContactNamePair, Contact> contacts) {
+    private static void showContacts(TreeMap<IdAndContactNamePair, Contact> contacts) {
 
     }
 }

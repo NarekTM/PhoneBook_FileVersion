@@ -1,21 +1,21 @@
 package models;
 
-import models.pairs.EmailTypeEmailPair;
-import models.pairs.PhoneNumberTypePhoneNumberPair;
+import models.pairs.EmailTypeAndEmailPair;
+import models.pairs.PhoneNumberTypeAndPhoneNumberPair;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Contact {
-    private List<PhoneNumberTypePhoneNumberPair> phoneNumbers = new ArrayList<>();
+    private List<PhoneNumberTypeAndPhoneNumberPair> phoneNumbers = new ArrayList<>();
     private String companyName;
-    private List<EmailTypeEmailPair> emails = new ArrayList<>();
+    private List<EmailTypeAndEmailPair> emails = new ArrayList<>();
 
-    public List<PhoneNumberTypePhoneNumberPair> getPhoneNumbers() {
+    public List<PhoneNumberTypeAndPhoneNumberPair> getPhoneNumbers() {
         return phoneNumbers;
     }
 
-    public void setPhoneNumbers(List<PhoneNumberTypePhoneNumberPair> phoneNumbers) {
+    public void setPhoneNumbers(List<PhoneNumberTypeAndPhoneNumberPair> phoneNumbers) {
         this.phoneNumbers = phoneNumbers;
     }
 
@@ -27,11 +27,11 @@ public class Contact {
         this.companyName = companyName;
     }
 
-    public List<EmailTypeEmailPair> getEmails() {
+    public List<EmailTypeAndEmailPair> getEmails() {
         return emails;
     }
 
-    public void setEmails(List<EmailTypeEmailPair> emails) {
+    public void setEmails(List<EmailTypeAndEmailPair> emails) {
         this.emails = emails;
     }
 }

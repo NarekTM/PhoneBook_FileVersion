@@ -2,11 +2,11 @@ package models.pairs;
 
 import models.PhoneNumberType;
 
-public class PhoneNumberTypePhoneNumberPair {
+public class PhoneNumberTypeAndPhoneNumberPair {
     private PhoneNumberType phoneNumberType;
     private String phoneNumber;
 
-    public PhoneNumberTypePhoneNumberPair(PhoneNumberType phoneNumberType, String phoneNumber) {
+    public PhoneNumberTypeAndPhoneNumberPair(PhoneNumberType phoneNumberType, String phoneNumber) {
         this.phoneNumberType = phoneNumberType;
         this.phoneNumber = phoneNumber;
     }

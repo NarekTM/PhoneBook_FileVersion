@@ -2,11 +2,11 @@ package models.pairs;
 
 import models.EmailType;
 
-public class EmailTypeEmailPair {
+public class EmailTypeAndEmailPair {
     private EmailType emailType;
     private String email;
 
-    public EmailTypeEmailPair(EmailType emailType, String email) {
+    public EmailTypeAndEmailPair(EmailType emailType, String email) {
         this.emailType = emailType;
         this.email = email;
     }
