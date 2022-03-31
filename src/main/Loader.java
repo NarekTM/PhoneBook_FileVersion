@@ -14,7 +14,7 @@ public class Loader {
         showMenu();
 
         while (true) {
-            int menuChoice = validMenuChoice();
+            int menuChoice = validChoice(0, 6);
 
             ContactService contactService = new ContactService();
 
@@ -24,7 +24,7 @@ public class Loader {
                     contactService.create(contactName);
                     break;
                 case 2:
-                    contactService.search("aaaaa");
+                    contactService.search();
                     break;
                 case 3:
                     contactService.update();

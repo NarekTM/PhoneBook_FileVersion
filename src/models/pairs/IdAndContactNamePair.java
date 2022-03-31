@@ -41,6 +41,11 @@ public class IdAndContactNamePair implements Comparable<IdAndContactNamePair> {
     }
 
     @Override
+    public String toString() {
+        return id + ". " + contactName;
+    }
+
+    @Override
     public int compareTo(IdAndContactNamePair o) {
         return this.contactName.compareTo(o.contactName);
     }

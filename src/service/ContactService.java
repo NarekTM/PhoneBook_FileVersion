@@ -4,7 +4,8 @@ import models.Contact;
 import models.EmailType;
 import models.PhoneNumberType;
 import models.pairs.IdAndContactNamePair;
-import models.pairs.PhoneNumberTypeAndPhoneNumberPair;
+
+import java.util.TreeMap;
 
 import static validator.GetValidInputs.*;
 import static contacts.PhoneBookDB.*;
@@ -15,17 +16,17 @@ public class ContactService {
         Contact contact = new Contact();
         while (true) {
             showActionsListForCreate();
-            int createChoice = validCreateChoice();
+            int createChoice = validChoice(0, 3);
             switch (createChoice) {
                 case 1:
                     showPhoneNumberTypes();
-                    int phoneNumberTypeChoice = validPhoneNumberTypeChoice();
+                    int phoneNumberTypeChoice = validChoice(1, 5);
                     String phoneNumber = validPhoneNumber();
                     contact.addElementToPhoneNumbers(phoneNumberTypeChoice, phoneNumber);
                     break;
                 case 2:
                     showEmailTypes();
-                    int emailTypeChoice = validEmailTypeChoice();
+                    int emailTypeChoice = validChoice(1, 6);
                     String email = validEmail();
                     contact.addElementToEmails(emailTypeChoice, email);
                     break;
@@ -41,8 +42,55 @@ public class ContactService {
         }
     }
 
-    public void search(String field) {
+    public void search() {
+        while (true) {
+            showActionsListForSearch();
+            int searchChoice = validChoice(0, 4);
+            String searchValue = validSearchValue();
+            TreeMap<IdAndContactNamePair, Contact> treeMap;
+            switch (searchChoice) {
+                case 1:
+                    treeMap = searchInContactsByName(searchValue);
+                    searchAndPrintResult(treeMap);
+                    break;
+                case 2:
+                    treeMap = searchInContactsByPhoneNumber(searchValue);
+                    searchAndPrintResult(treeMap);
+                    break;
+                case 3:
+                    treeMap = searchInContactsByEmail(searchValue);
+                    searchAndPrintResult(treeMap);
+                    break;
+                case 4:
+                    treeMap = searchInContactsByCompanyName(searchValue);
+                    searchAndPrintResult(treeMap);
+                    break;
+                case 0:
+                    return;
+            }
+        }
 
+    }
+
+    private void searchAndPrintResult(TreeMap<IdAndContactNamePair, Contact> treeMap) {
+        if (treeMap.size() == 0) {
+            System.out.println("There is no contact matching your input.");
+        } else if (treeMap.size() == 1) {
+            System.out.println(treeMap.firstEntry().toString());
+        } else {
+            for (IdAndContactNamePair pair : treeMap.navigableKeySet()) {
+                System.out.println(pair.toString() + treeMap.get(pair).toString());
+            }
+        }
+    }
+
+    private void showActionsListForSearch() {
+        System.out.println("Enter the appropriate line number of the criteria by which you want to search:\n" +
+                "1. Search by contact's name.\n" +
+                "2. Search by contact's phone number.\n" +
+                "3. Search by contact's email.\n" +
+                "4. Search by contact's company name.\n" +
+                "0. Finish searching.");
     }
 
     public void update() {
@@ -54,7 +102,7 @@ public class ContactService {
     }
 
     private void showActionsListForCreate() {
-        System.out.println("Enter the number of the action you want to perform:\n" +
+        System.out.println("Enter the appropriate line number of the action you want to perform:\n" +
                 "1. To enter contact's phone number label and phone number.\n" +
                 "2. To enter contact's email label and email.\n" +
                 "3. To enter contact's company name.\n" +

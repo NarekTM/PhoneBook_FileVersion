@@ -9,19 +9,19 @@ public final class GetValidInputs {
 
     private GetValidInputs() {}
 
-    public static int validMenuChoice() {
-        int menuChoice = -1;
+    public static int validChoice(int min, int max) {
+        int choice = -1;
         boolean isValidInput = true;
-        while (!isValidChoice(0, 6, menuChoice)) {
+        while (!isValidChoice(min, max, choice)) {
             if (!isValidInput) {
-                System.out.println("You can input only one digit number between 0 and 6.");
+                System.out.printf("You can input only one digit number between %d and %d.\n", min, max);
             }
             System.out.print("Enter your choice: ");
-            menuChoice = SCANNER.nextInt();
+            choice = SCANNER.nextInt();
             isValidInput = false;
         }
         SCANNER.close();
-        return menuChoice;
+        return choice;
     }
 
     public static String validContactName() {
@@ -39,36 +39,6 @@ public final class GetValidInputs {
         return contactName;
     }
 
-    public static int validCreateChoice() {
-        int createChoice = -1;
-        boolean isValidInput = true;
-        while (!isValidChoice(0, 3, createChoice)) {
-            if (!isValidInput) {
-                System.out.println("You can input only one digit number between 0 and 3.");
-            }
-            System.out.print("Enter your choice: ");
-            createChoice = SCANNER.nextInt();
-            isValidInput = false;
-        }
-        SCANNER.close();
-        return createChoice;
-    }
-
-    public static int validPhoneNumberTypeChoice() {
-        int phoneNumberTypeChoice = -1;
-        boolean isValidInput = true;
-        while (!isValidChoice(1, 5, phoneNumberTypeChoice)) {
-            if (!isValidInput) {
-                System.out.println("You can input only one digit number between 1 and 5.");
-            }
-            System.out.print("Enter your choice: ");
-            phoneNumberTypeChoice = SCANNER.nextInt();
-            isValidInput = false;
-        }
-        SCANNER.close();
-        return phoneNumberTypeChoice;
-    }
-
     public static String validPhoneNumber() {
         String phoneNumber = "";
         boolean isValidInput = true;
@@ -82,21 +52,6 @@ public final class GetValidInputs {
         }
         SCANNER.close();
         return phoneNumber;
-    }
-
-    public static int validEmailTypeChoice() {
-        int emailTypeChoice = -1;
-        boolean isValidInput = true;
-        while (!isValidChoice(1, 6, emailTypeChoice)) {
-            if (!isValidInput) {
-                System.out.println("You can input only one digit number between 1 and 6.");
-            }
-            System.out.print("Enter your choice: ");
-            emailTypeChoice = SCANNER.nextInt();
-            isValidInput = false;
-        }
-        SCANNER.close();
-        return emailTypeChoice;
     }
 
     public static String validEmail() {
@@ -130,5 +85,20 @@ public final class GetValidInputs {
         }
         SCANNER.close();
         return companyName;
+    }
+
+    public static String validSearchValue() {
+        String searchValue = "";
+        boolean isValidInput = true;
+        while (searchValue.length() < 1) {
+            if (!isValidInput) {
+                System.out.println("You can input anything at least with a length of 1.");
+            }
+            System.out.print("Enter searching value: ");
+            searchValue = SCANNER.nextLine();
+            isValidInput = false;
+        }
+        SCANNER.close();
+        return searchValue;
     }
 }

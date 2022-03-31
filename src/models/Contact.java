@@ -48,4 +48,19 @@ public class Contact {
                 new EmailTypeAndEmailPair(emailType, email);
         emails.add(emailTypeAndEmailPair);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        for (PhoneNumberTypeAndPhoneNumberPair pair : phoneNumbers) {
+            result.append(pair).append('\n');
+        }
+        if (companyName != null) {
+            result.append(companyName).append('\n');
+        }
+        for (EmailTypeAndEmailPair pair : emails) {
+            result.append(pair).append('\n');
+        }
+        return result.toString();
+    }
 }
