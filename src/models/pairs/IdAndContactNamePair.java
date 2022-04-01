@@ -47,6 +47,8 @@ public class IdAndContactNamePair implements Comparable<IdAndContactNamePair> {
 
     @Override
     public int compareTo(IdAndContactNamePair o) {
-        return this.contactName.compareTo(o.contactName);
+        return this.contactName.compareTo(o.contactName) != 0 ?
+                this.contactName.compareTo(o.contactName) :
+                (this.id - o.id);
     }
 }

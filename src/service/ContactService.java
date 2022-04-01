@@ -85,7 +85,7 @@ public class ContactService {
     }
 
     private void showActionsListForSearch() {
-        System.out.println("Enter the appropriate line number of the criteria by which you want to search:\n" +
+        System.out.println("\nEnter the appropriate line number of the criteria by which you want to search:\n" +
                 "1. Search by contact's name.\n" +
                 "2. Search by contact's phone number.\n" +
                 "3. Search by contact's email.\n" +
@@ -102,7 +102,7 @@ public class ContactService {
     }
 
     private void showActionsListForCreate() {
-        System.out.println("Enter the appropriate line number of the action you want to perform:\n" +
+        System.out.println("\nEnter the appropriate line number of the action you want to perform:\n" +
                 "1. To enter contact's phone number label and phone number.\n" +
                 "2. To enter contact's email label and email.\n" +
                 "3. To enter contact's company name.\n" +
@@ -110,18 +110,18 @@ public class ContactService {
     }
 
     private void showPhoneNumberTypes() {
-        System.out.println("Enter the appropriate line number to choose phone number label you want:");
+        System.out.println("\nEnter the appropriate line number to choose phone number label you want:");
         int number = 0;
         for (PhoneNumberType phoneNumberType : PhoneNumberType.values()) {
-            System.out.println(++number + ". " + phoneNumberType);
+            System.out.println(++number + ". " + phoneNumberType.getType());
         }
     }
 
     private void showEmailTypes() {
-        System.out.println("Enter the appropriate line number to choose email label you want:");
+        System.out.println("\nEnter the appropriate line number to choose email label you want:");
         int number = 0;
         for (EmailType emailType : EmailType.values()) {
-            System.out.println(++number + ". " + emailType);
+            System.out.println(++number + ". " + emailType.getType());
         }
     }
 }

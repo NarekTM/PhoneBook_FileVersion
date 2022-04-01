@@ -11,10 +11,10 @@ import static validator.GetValidInputs.*;
 
 public class Loader {
     public static void start() {
-        showMenu();
-
         while (true) {
-            int menuChoice = validChoice(0, 6);
+            showMenu();
+
+            int menuChoice = validChoice(0, 5);
 
             ContactService contactService = new ContactService();
 
@@ -36,9 +36,6 @@ public class Loader {
                     TreeMap<IdAndContactNamePair, Contact> contacts = PhoneBookDB.getContacts();
                     showContacts(contacts);
                     break;
-                case 6:
-                    showMenu();
-                    break;
                 case 0:
                     System.exit(0);
             }
@@ -46,12 +43,11 @@ public class Loader {
     }
 
     private static void showMenu() {
-        System.out.println("Enter 1 to add a new contact.\n" +
+        System.out.println("\nEnter 1 to add a new contact.\n" +
                 "Enter 2 to search a contact.\n" +
                 "Enter 3 to update a contact.\n" +
                 "Enter 4 to delete a contact.\n" +
                 "Enter 5 to view contacts list.\n" +
-                "Enter 6 to view the menu list.\n" +
                 "Enter 0 to exit from application.");
     }
 

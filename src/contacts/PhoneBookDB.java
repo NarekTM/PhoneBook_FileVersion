@@ -14,8 +14,8 @@ public class PhoneBookDB {
         return CONTACTS;
     }
 
-    public static void addIdCntNamePairAndContactToContacts(IdAndContactNamePair idAndContactPair, Contact contact) {
-        CONTACTS.put(idAndContactPair, contact);
+    public static void addIdCntNamePairAndContactToContacts(IdAndContactNamePair idAndContactNamePair, Contact contact) {
+        CONTACTS.put(idAndContactNamePair, contact);
     }
 
     public static TreeMap<IdAndContactNamePair, Contact> searchInContactsByName(String searchValue) {

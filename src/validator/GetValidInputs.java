@@ -7,21 +7,21 @@ import static validator.Validator.*;
 public final class GetValidInputs {
     private static final Scanner SCANNER = new Scanner(System.in);
 
-    private GetValidInputs() {}
+    private GetValidInputs() {
+    }
 
     public static int validChoice(int min, int max) {
-        int choice = -1;
+        String choice = "-1";
         boolean isValidInput = true;
         while (!isValidChoice(min, max, choice)) {
             if (!isValidInput) {
                 System.out.printf("You can input only one digit number between %d and %d.\n", min, max);
             }
             System.out.print("Enter your choice: ");
-            choice = SCANNER.nextInt();
+            choice = SCANNER.nextLine();
             isValidInput = false;
         }
-        SCANNER.close();
-        return choice;
+        return Integer.parseInt(choice);
     }
 
     public static String validContactName() {
@@ -35,7 +35,6 @@ public final class GetValidInputs {
             contactName = SCANNER.nextLine();
             isValidInput = false;
         }
-        SCANNER.close();
         return contactName;
     }
 
@@ -50,7 +49,6 @@ public final class GetValidInputs {
             phoneNumber = SCANNER.nextLine();
             isValidInput = false;
         }
-        SCANNER.close();
         return phoneNumber;
     }
 
@@ -59,16 +57,15 @@ public final class GetValidInputs {
         boolean isValidInput = true;
         while (!isValidEmail(email)) {
             if (!isValidInput) {
-                System.out.println("You can input only latin letters, numbers and this symbols . _ % + - before @ " +
-                        "with length between 6 and 30, after it you can input latin letters, numbers and symbols . - " +
-                        "for domain name with length between 2 and 30 and only latin letters for " +
+                System.out.println("You can input only latin letters, numbers and this symbols . _ % + - before @" +
+                        "with length between 6 and 30,\nafter it you can input latin letters, numbers and symbols . - " +
+                        "for domain name with length between 2 and 30\nand only latin letters for " +
                         "domain name extension with length between 2 and 6.");
             }
             System.out.print("Enter email: ");
             email = SCANNER.nextLine();
             isValidInput = false;
         }
-        SCANNER.close();
         return email;
     }
 
@@ -83,7 +80,6 @@ public final class GetValidInputs {
             companyName = SCANNER.nextLine();
             isValidInput = false;
         }
-        SCANNER.close();
         return companyName;
     }
 
@@ -98,7 +94,6 @@ public final class GetValidInputs {
             searchValue = SCANNER.nextLine();
             isValidInput = false;
         }
-        SCANNER.close();
         return searchValue;
     }
 }

@@ -31,9 +31,4 @@ public enum PhoneNumberType {
         }
         return null;
     }
-
-    @Override
-    public String toString() {
-        return type;
-    }
 }
