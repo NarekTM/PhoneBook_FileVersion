@@ -73,31 +73,16 @@ public class ContactService {
 
     }
 
-    private void printSearchResult(TreeMap<IdAndContactNamePair, Contact> treeMap) {
-        if (treeMap.size() == 0) {
-            System.out.println("There is no contact matching your input.");
-        } else if (treeMap.size() == 1) {
-            System.out.println(treeMap.firstEntry().getKey().getContactName() + '\n' +
-                    treeMap.firstEntry().getValue());
-        } else {
-            int itemNumber = 0;
-            for (IdAndContactNamePair pair : treeMap.navigableKeySet()) {
-                System.out.println(++itemNumber + ". " + pair.getContactName() + '\n' + treeMap.get(pair).toString());
-            }
-        }
-    }
-
-    private void showActionsListForSearch() {
-        System.out.println("\nEnter the appropriate line number of the criteria by which you want to search:\n" +
-                "1. Search by contact's name.\n" +
-                "2. Search by contact's phone number.\n" +
-                "3. Search by contact's email.\n" +
-                "4. Search by contact's company name.\n" +
-                "0. Finish searching.");
-    }
-
     public void update() {
 
+    }
+
+    private void showActionsListForUpdate() {
+        System.out.println("\nEnter the appropriate line number of the action you want to perform:\n" +
+                "1. To enter contact's phone number label and phone number.\n" +
+                "2. To enter contact's email label and email.\n" +
+                "3. To enter contact's company name.\n" +
+                "0. To save contact.");
     }
 
     public void delete() {
@@ -126,5 +111,28 @@ public class ContactService {
         for (EmailType emailType : EmailType.values()) {
             System.out.println(++number + ". " + emailType.getType());
         }
+    }
+
+    private void printSearchResult(TreeMap<IdAndContactNamePair, Contact> treeMap) {
+        if (treeMap.size() == 0) {
+            System.out.println("There is no contact matching your input.");
+        } else if (treeMap.size() == 1) {
+            System.out.println(treeMap.firstEntry().getKey().getContactName() + '\n' +
+                    treeMap.firstEntry().getValue());
+        } else {
+            int itemNumber = 0;
+            for (IdAndContactNamePair pair : treeMap.navigableKeySet()) {
+                System.out.println(++itemNumber + ". " + pair.getContactName() + '\n' + treeMap.get(pair).toString());
+            }
+        }
+    }
+
+    private void showActionsListForSearch() {
+        System.out.println("\nEnter the appropriate line number of the criteria by which you want to search:\n" +
+                "1. Search by contact's name.\n" +
+                "2. Search by contact's phone number.\n" +
+                "3. Search by contact's email.\n" +
+                "4. Search by contact's company name.\n" +
+                "0. Finish searching.");
     }
 }

@@ -64,4 +64,8 @@ public class PhoneBookDB {
         }
         return result;
     }
+
+    public static void showAllContacts() {
+
+    }
 }

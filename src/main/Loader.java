@@ -7,6 +7,7 @@ import service.ContactService;
 
 import java.util.TreeMap;
 
+import static contacts.PhoneBookDB.showAllContacts;
 import static validator.GetValidInputs.*;
 
 public class Loader {
@@ -33,8 +34,7 @@ public class Loader {
                     contactService.delete();
                     break;
                 case 5:
-                    TreeMap<IdAndContactNamePair, Contact> contacts = PhoneBookDB.getContacts();
-                    showContacts(contacts);
+                    showAllContacts();
                     break;
                 case 0:
                     System.out.println("**********************\n" +
@@ -52,11 +52,5 @@ public class Loader {
                 "Enter 4 to delete a contact.\n" +
                 "Enter 5 to view contacts list.\n" +
                 "Enter 0 to exit from application.");
-    }
-
-
-    //This method maybe needs to change return type to String
-    private static void showContacts(TreeMap<IdAndContactNamePair, Contact> contacts) {
-
     }
 }
