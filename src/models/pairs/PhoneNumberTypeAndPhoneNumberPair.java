@@ -29,6 +29,6 @@ public class PhoneNumberTypeAndPhoneNumberPair {
 
     @Override
     public String toString() {
-        return phoneNumberType + ": " + phoneNumber;
+        return phoneNumberType.getType() + ": " + phoneNumber;
     }
 }

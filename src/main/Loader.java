@@ -37,6 +37,9 @@ public class Loader {
                     showContacts(contacts);
                     break;
                 case 0:
+                    System.out.println("**********************\n" +
+                            "*** See you again! ***\n" +
+                            "**********************");
                     System.exit(0);
             }
         }

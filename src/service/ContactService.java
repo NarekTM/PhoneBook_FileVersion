@@ -46,40 +46,43 @@ public class ContactService {
         while (true) {
             showActionsListForSearch();
             int searchChoice = validChoice(0, 4);
+            if (searchChoice == 0) {
+                return;
+            }
             String searchValue = validSearchValue();
             TreeMap<IdAndContactNamePair, Contact> treeMap;
             switch (searchChoice) {
                 case 1:
                     treeMap = searchInContactsByName(searchValue);
-                    searchAndPrintResult(treeMap);
+                    printSearchResult(treeMap);
                     break;
                 case 2:
                     treeMap = searchInContactsByPhoneNumber(searchValue);
-                    searchAndPrintResult(treeMap);
+                    printSearchResult(treeMap);
                     break;
                 case 3:
                     treeMap = searchInContactsByEmail(searchValue);
-                    searchAndPrintResult(treeMap);
+                    printSearchResult(treeMap);
                     break;
                 case 4:
                     treeMap = searchInContactsByCompanyName(searchValue);
-                    searchAndPrintResult(treeMap);
+                    printSearchResult(treeMap);
                     break;
-                case 0:
-                    return;
             }
         }
 
     }
 
-    private void searchAndPrintResult(TreeMap<IdAndContactNamePair, Contact> treeMap) {
+    private void printSearchResult(TreeMap<IdAndContactNamePair, Contact> treeMap) {
         if (treeMap.size() == 0) {
             System.out.println("There is no contact matching your input.");
         } else if (treeMap.size() == 1) {
-            System.out.println(treeMap.firstEntry().toString());
+            System.out.println(treeMap.firstEntry().getKey().getContactName() + '\n' +
+                    treeMap.firstEntry().getValue());
         } else {
+            int itemNumber = 0;
             for (IdAndContactNamePair pair : treeMap.navigableKeySet()) {
-                System.out.println(pair.toString() + treeMap.get(pair).toString());
+                System.out.println(++itemNumber + ". " + pair.getContactName() + '\n' + treeMap.get(pair).toString());
             }
         }
     }

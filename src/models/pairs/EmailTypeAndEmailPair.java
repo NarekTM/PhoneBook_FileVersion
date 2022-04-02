@@ -29,6 +29,6 @@ public class EmailTypeAndEmailPair {
 
     @Override
     public String toString() {
-        return emailType + ": " + email;
+        return emailType.getType() + ": " + email;
     }
 }

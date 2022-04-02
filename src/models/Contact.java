@@ -56,7 +56,7 @@ public class Contact {
             result.append(pair).append('\n');
         }
         if (companyName != null) {
-            result.append(companyName).append('\n');
+            result.append("Company: ").append(companyName).append('\n');
         }
         for (EmailTypeAndEmailPair pair : emails) {
             result.append(pair).append('\n');
