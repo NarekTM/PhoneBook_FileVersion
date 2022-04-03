@@ -43,7 +43,7 @@ public final class GetValidInputs {
         boolean isValidInput = true;
         while (!isValidPhoneNumber(phoneNumber)) {
             if (!isValidInput) {
-                System.out.println("You can input only numbers and this 4 symbols +, (), - and space.");
+                System.out.println("You can input only numbers, symbol + (it can be only the first one) and space.");
             }
             System.out.print("Enter phone number: ");
             phoneNumber = SCANNER.nextLine();
@@ -57,10 +57,10 @@ public final class GetValidInputs {
         boolean isValidInput = true;
         while (!isValidEmail(email)) {
             if (!isValidInput) {
-                System.out.println("You can input only latin letters, numbers and this symbols . _ % + - before @" +
-                        "with length between 6 and 30,\nafter it you can input latin letters, numbers and symbols . - " +
-                        "for domain name with length between 2 and 30\nand only latin letters for " +
-                        "domain name extension with length between 2 and 6.");
+                System.out.println("You can input only latin letters, numbers and this symbols . _ - before @ " +
+                        "with length between 6 and 30,\nafter @ you can input latin letters, numbers and symbol - " +
+                        "for domain name with length between 2 and 30 and\n only latin letters for " +
+                        "domain name extension with length between 2 and 8.");
             }
             System.out.print("Enter email: ");
             email = SCANNER.nextLine();

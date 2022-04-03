@@ -13,6 +13,11 @@ public class IdAndContactNamePair implements Comparable<IdAndContactNamePair> {
         this.id = getLastElementOfIdList();
     }
 
+    public IdAndContactNamePair(IdAndContactNamePair pair) {
+        this.contactName = pair.getContactName();
+        this.id = pair.getId();
+    }
+
     public String getContactName() {
         return contactName;
     }

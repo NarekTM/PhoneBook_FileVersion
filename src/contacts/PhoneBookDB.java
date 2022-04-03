@@ -18,6 +18,12 @@ public class PhoneBookDB {
         CONTACTS.put(idAndContactNamePair, contact);
     }
 
+    public static void replaceEntryInContacts (IdAndContactNamePair oldPair, Contact oldContact,
+                                               IdAndContactNamePair newPair, Contact newContact) {
+        CONTACTS.remove(oldPair, oldContact);
+        CONTACTS.put(newPair, newContact);
+    }
+
     public static TreeMap<IdAndContactNamePair, Contact> searchInContactsByName(String searchValue) {
         searchValue = searchValue.toLowerCase();
         TreeMap<IdAndContactNamePair, Contact> result = new TreeMap<>();

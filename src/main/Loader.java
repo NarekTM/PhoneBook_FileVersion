@@ -25,7 +25,8 @@ public class Loader {
                     contactService.create(contactName);
                     break;
                 case 2:
-                    contactService.search();
+                    TreeMap<IdAndContactNamePair, Contact> searchResult = contactService.search();
+                    contactService.printSearchResult(searchResult);
                     break;
                 case 3:
                     contactService.update();

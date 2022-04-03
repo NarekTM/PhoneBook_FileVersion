@@ -5,17 +5,26 @@ import java.util.regex.Pattern;
 
 public class Validator {
     /**
-     * We have to give documentation for all patterns!
+     * (.)                     # any Unicode character
+     *
+     * {1,50}                  # length min 1, max 50
      */
     public static final Pattern VALID_NAME_PATTERN = Pattern.compile("^(.){1,50}$");
-    public static final Pattern VALID_PHONE_NUMBER_PATTERN = Pattern.compile("^\\+?[0-9 ]{6,35}$");
+
     /**
-     * (?=.{6,30}@)            # local-part min 6 max 30
+     * \\+?[0-9 ]              # can start with +, can contain only numbers and spaces
+     *
+     *{6,35}                   # length min 6, max 35
+     */
+    public static final Pattern VALID_PHONE_NUMBER_PATTERN = Pattern.compile("^\\+?[0-9 ]{6,35}$");
+
+    /**
+     * (?=.{6,30}@)            # local-part, length min 6 max 30
      *
      * [A-Za-z0-9_-]+          # Start with chars in the bracket [ ], one or more (+)
      *                         # dot (.) not in the bracket[], it can't start with a dot (.)
      *
-     * (\\.[A-Za-z0-9_-]+)*	 # follow by a dot (.), then chars in the bracket [ ] one or more (+)
+     * (\\.[A-Za-z0-9_-]+)*	   # follow by a dot (.), then chars in the bracket [ ] one or more (+)
      *                         # * means this is optional
      *                         # this rule for two dots (.)
      *
@@ -25,13 +34,14 @@ public class Validator {
      *
      * [A-Za-z0-9-]+           # Start with chars in the bracket [ ], one or more (+)
      *
-     * (\\.[A-Za-z0-9-]+)*      # follow by a dot (.), optional
+     * (\\.[A-Za-z0-9-]+)*     # follow by a dot (.), optional
      *
-     * (\\.[A-Za-z]{2,})       # the last tld, chars in the bracket [ ], min 2
+     * (\\.[A-Za-z]{2,8})      # the last tld, chars in the bracket [ ], length min 2, max 8
      */
     public static final Pattern VALID_EMAIL_PATTERN =
             Pattern.compile("^(?=.{6,30}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+" +
-                    "(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$", Pattern.CASE_INSENSITIVE);
+            "(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,8})$", Pattern.CASE_INSENSITIVE);
+
 //    public static final Pattern VALID_EMAIL_PATTERN =
 //     Pattern.compile("^([A-Z0-9._%+-]{5,31})+@([A-Z0-9.-]{2,30})+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 

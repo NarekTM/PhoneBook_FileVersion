@@ -12,7 +12,7 @@ public class Contact {
     private List<EmailTypeAndEmailPair> emails = new ArrayList<>();
 
     public List<PhoneNumberTypeAndPhoneNumberPair> getPhoneNumbers() {
-        return phoneNumbers;
+        return new ArrayList<>(phoneNumbers);
     }
 
     public void setPhoneNumbers(List<PhoneNumberTypeAndPhoneNumberPair> phoneNumbers) {
@@ -28,11 +28,20 @@ public class Contact {
     }
 
     public List<EmailTypeAndEmailPair> getEmails() {
-        return emails;
+        return new ArrayList<>(emails);
     }
 
     public void setEmails(List<EmailTypeAndEmailPair> emails) {
         this.emails = emails;
+    }
+
+    public Contact() {
+    }
+
+    public Contact(Contact contact) {
+        this.phoneNumbers = contact.getPhoneNumbers();
+        this.companyName = contact.getCompanyName();
+        this.emails = contact.getEmails();
     }
 
     public void addElementToPhoneNumbers(int phoneNumberTypeChoice, String phoneNumber) {
@@ -47,6 +56,20 @@ public class Contact {
         EmailTypeAndEmailPair emailTypeAndEmailPair =
                 new EmailTypeAndEmailPair(emailType, email);
         emails.add(emailTypeAndEmailPair);
+    }
+
+    public void replaceElementInPhoneNumbers(PhoneNumberTypeAndPhoneNumberPair oldPair,
+                                             PhoneNumberTypeAndPhoneNumberPair newPair) {
+        int index = this.phoneNumbers.indexOf(oldPair);
+        this.phoneNumbers.remove(oldPair);
+        this.phoneNumbers.add(index, newPair);
+    }
+
+    public void replaceElementInEmails(EmailTypeAndEmailPair oldPair,
+                                             EmailTypeAndEmailPair newPair) {
+        int index = this.emails.indexOf(oldPair);
+        this.emails.remove(oldPair);
+        this.emails.add(index, newPair);
     }
 
     @Override
