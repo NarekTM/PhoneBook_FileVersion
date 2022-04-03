@@ -45,6 +45,10 @@ public class IdAndContactNamePair implements Comparable<IdAndContactNamePair> {
         return ID_LIST.get(size - 1);
     }
 
+    public void removeLastElementOfIdList() {
+        ID_LIST.remove(ID_LIST.size() - 1);
+    }
+
     @Override
     public String toString() {
         return id + ". " + contactName;

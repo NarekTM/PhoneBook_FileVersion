@@ -71,7 +71,15 @@ public class PhoneBookDB {
         return result;
     }
 
-    public static void showAllContacts() {
+    public static void deleteEntryInContacts(IdAndContactNamePair pair) {
+        CONTACTS.remove(pair);
+    }
 
+    public static void showAllContacts() {
+        int number = 0;
+        System.out.println("\nAll contacts:\n");
+        for (Map.Entry<IdAndContactNamePair, Contact> entry : CONTACTS.entrySet()) {
+            System.out.println(++number + ". " + entry.getKey().getContactName() + "\n" + entry.getValue().toString());
+        }
     }
 }

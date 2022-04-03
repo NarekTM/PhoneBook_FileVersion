@@ -21,7 +21,7 @@ public class ContactService {
         Contact contact = new Contact();
         while (true) {
             showActionsListForCreate();
-            int createChoice = validChoice(0, 3);
+            int createChoice = validChoice(0, 4);
             switch (createChoice) {
                 case 1:
                     addPhoneNumberToContact(contact);
@@ -33,64 +33,15 @@ public class ContactService {
                     String companyName = validCompanyName();
                     contact.setCompanyName(companyName);
                     break;
+                case 4:
+                    idAndContactNamePair.removeLastElementOfIdList();
+                    return;
                 case 0:
                     addIdCntNamePairAndContactToContacts(idAndContactNamePair, contact);
                     System.out.printf("Contact %s successfully saved.\n", contactName);
                     return;
             }
         }
-    }
-
-//    public void search() {
-//        while (true) {
-//            showActionsListForSearch();
-//            int searchChoice = validChoice(0, 4);
-//            if (searchChoice == 0) {
-//                return;
-//            }
-//            String searchValue = validSearchValue();
-//            TreeMap<IdAndContactNamePair, Contact> treeMap;
-//            switch (searchChoice) {
-//                case 1:
-//                    treeMap = searchInContactsByName(searchValue);
-//                    printSearchResult(treeMap);
-//                    break;
-//                case 2:
-//                    treeMap = searchInContactsByPhoneNumber(searchValue);
-//                    printSearchResult(treeMap);
-//                    break;
-//                case 3:
-//                    treeMap = searchInContactsByEmail(searchValue);
-//                    printSearchResult(treeMap);
-//                    break;
-//                case 4:
-//                    treeMap = searchInContactsByCompanyName(searchValue);
-//                    printSearchResult(treeMap);
-//                    break;
-//            }
-//        }
-//    }
-
-    private void addPhoneNumberToContact(Contact contact) {
-        int phoneNumberTypeChoice = choosePhoneNumberType();
-        String phoneNumber = validPhoneNumber();
-        contact.addElementToPhoneNumbers(phoneNumberTypeChoice, phoneNumber);
-    }
-
-    private int choosePhoneNumberType() {
-        showPhoneNumberTypes();
-        return validChoice(1, 5);
-    }
-
-    private void addEmailToContact(Contact contact) {
-        int emailTypeChoice = chooseEmailType();
-        String email = validEmail();
-        contact.addElementToEmails(emailTypeChoice, email);
-    }
-
-    private int chooseEmailType() {
-        showEmailTypes();
-        return validChoice(1, 6);
     }
 
     public TreeMap<IdAndContactNamePair, Contact> search() {
@@ -119,7 +70,7 @@ public class ContactService {
         TreeMap<IdAndContactNamePair, Contact> searchResult = this.search();
         printSearchResult(searchResult);
         int size;
-        if (searchResult != null) {
+        if (searchResult != null && searchResult.size() != 0) {
             size = searchResult.size();
         } else {
             return;
@@ -134,7 +85,7 @@ public class ContactService {
         } else {
             System.out.println("\nEnter the appropriate line number of the contact you want to update:\n");
             int contactLineNumber = validChoice(1, searchResult.size());
-            Map.Entry<IdAndContactNamePair, Contact> entry = entryForUpdate(searchResult, contactLineNumber);
+            Map.Entry<IdAndContactNamePair, Contact> entry = entryForUpdateOrDelete(searchResult, contactLineNumber);
             assert entry != null;
             oldPair = entry.getKey();
             oldContact = entry.getValue();
@@ -142,6 +93,70 @@ public class ContactService {
         newPair = new IdAndContactNamePair(oldPair);
         newContact = new Contact(oldContact);
         startMakeChanges(oldPair, oldContact, newPair, newContact);
+    }
+
+    public void delete() {
+        System.out.println("For first you need to find and choose contact that you want to delete.");
+        TreeMap<IdAndContactNamePair, Contact> searchResult = this.search();
+        printSearchResult(searchResult);
+        int size;
+        if (searchResult != null && searchResult.size() != 0) {
+            size = searchResult.size();
+        } else {
+            return;
+        }
+        IdAndContactNamePair pair;
+        if (size == 1) {
+            pair = searchResult.firstKey();
+        } else {
+            System.out.println("\nEnter the appropriate line number of the contact you want to delete:\n");
+            int contactLineNumber = validChoice(1, searchResult.size());
+            Map.Entry<IdAndContactNamePair, Contact> entry = entryForUpdateOrDelete(searchResult, contactLineNumber);
+            assert entry != null;
+            pair = entry.getKey();
+        }
+        System.out.println("\nEnter the appropriate line number of the action you want to perform:\n" +
+                "1. To delete contact.\n" +
+                "2. To return main menu.");
+        int deleteChoice = validChoice(1, 2);
+        if (deleteChoice == 1) {
+            deleteEntryInContacts(pair);
+            System.out.println("Contact was successfully deleted.");
+        }
+    }
+
+    private void addPhoneNumberToContact(Contact contact) {
+        int phoneNumberTypeChoice = choosePhoneNumberType();
+        String phoneNumber = validPhoneNumber();
+        contact.addElementToPhoneNumbers(phoneNumberTypeChoice, phoneNumber);
+    }
+
+    private int choosePhoneNumberType() {
+        showPhoneNumberTypes();
+        return validChoice(1, 5);
+    }
+
+    private void addEmailToContact(Contact contact) {
+        int emailTypeChoice = chooseEmailType();
+        String email = validEmail();
+        contact.addElementToEmails(emailTypeChoice, email);
+    }
+
+    private int chooseEmailType() {
+        showEmailTypes();
+        return validChoice(1, 6);
+    }
+
+    public void printSearchResult(TreeMap<IdAndContactNamePair, Contact> treeMap) {
+        if (treeMap == null || treeMap.size() == 0) {
+            System.out.println("\nThere is no contact matching your input.");
+        } else {
+            System.out.println("\nSearching result:\n");
+            int itemNumber = 0;
+            for (IdAndContactNamePair pair : treeMap.navigableKeySet()) {
+                System.out.println(++itemNumber + ". " + pair.getContactName() + '\n' + treeMap.get(pair).toString());
+            }
+        }
     }
 
     private void startMakeChanges(IdAndContactNamePair oldPair, Contact oldContact,
@@ -169,22 +184,19 @@ public class ContactService {
                     break;
                 case 0:
                     replaceEntryInContacts(oldPair, oldContact, newPair, newContact);
+                    System.out.println("Contact was successfully updated.");
                     return;
             }
         }
     }
 
-    private void showActionsListForUpdate() {
-        System.out.println("\nEnter the appropriate line number of the action you want to perform:\n" +
-                "1. To update contact's name.\n" +
-                "2. To update contact's phone number label or phone number.\n" +
-                "3. To update contact's email label or email.\n" +
-                "4. To update contact's company name.\n" +
-                "5. To discard changes.\n" +
-                "0. To save changes.");
-    }
-
-    private Map.Entry<IdAndContactNamePair, Contact> entryForUpdate(
+    /**
+     * Returns a pair of IdAndContactNamePair and Contact, for performing with it two actions:
+     * delete or update.
+     * @param treeMap - a result of the search method
+     * @param index - an integer specifying which treemap entry should be returned
+     */
+    private Map.Entry<IdAndContactNamePair, Contact> entryForUpdateOrDelete(
             TreeMap<IdAndContactNamePair, Contact> treeMap, int index) {
         int indexHelper = 1;
         Set<Map.Entry<IdAndContactNamePair, Contact>> entrySet = treeMap.entrySet();
@@ -197,26 +209,6 @@ public class ContactService {
         return null;
     }
 
-//    private int printEntryContentForUpdate(TreeMap<IdAndContactNamePair, Contact> treeMap, int index) {
-//        int indexHelper = 1;
-//        Set<Map.Entry<IdAndContactNamePair, Contact>> entrySet = treeMap.entrySet();
-//        int itemNumber = 0;
-//        for (Map.Entry<IdAndContactNamePair, Contact> currentEntry : entrySet) {
-//            if (index == indexHelper) {
-//                System.out.println(currentEntry.getKey().getContactName());
-//                for (PhoneNumberTypeAndPhoneNumberPair pair : currentEntry.getValue().getPhoneNumbers()) {
-//                    System.out.println(++itemNumber + ". " + pair.toString());
-//                }
-//                System.out.println(++itemNumber + "Company: " + currentEntry.getValue().getCompanyName());
-//                for (EmailTypeAndEmailPair pair : currentEntry.getValue().getEmails()) {
-//                    System.out.println(++itemNumber + ". " + pair.toString());
-//                }
-//            }
-//            indexHelper++;
-//        }
-//        return itemNumber;
-//    }
-
     private void makeChangesInPhoneNumbers(Contact contact) {
         Contact newContact = new Contact(contact);
         List<PhoneNumberTypeAndPhoneNumberPair> phoneNumbers = newContact.getPhoneNumbers();
@@ -226,7 +218,6 @@ public class ContactService {
             } else {
                 showActionsForUpdatingContact();
                 int updatePhoneNumberChoice = validChoice(0, 3);
-                int size = phoneNumbers.size();
                 switch (updatePhoneNumberChoice) {
                     case 0:
                         contact.setPhoneNumbers(newContact.getPhoneNumbers());
@@ -259,7 +250,6 @@ public class ContactService {
             } else {
                 showActionsForUpdatingContact();
                 int updateEmailChoice = validChoice(0, 3);
-                int size = emails.size();
                 switch (updateEmailChoice) {
                     case 0:
                         contact.setEmails(newContact.getEmails());
@@ -294,24 +284,40 @@ public class ContactService {
         return (E) infoArray[lineNumber - 1];
     }
 
+    private void showActionsListForCreate() {
+        System.out.println("\nEnter the appropriate line number of the action you want to perform:\n" +
+                "1. To enter contact's phone number label and phone number.\n" +
+                "2. To enter contact's email label and email.\n" +
+                "3. To enter contact's company name.\n" +
+                "4. To discard adding and return to main menu.\n" +
+                "0. To save contact.");
+    }
+
+    private void showActionsListForSearch() {
+        System.out.println("\nEnter the appropriate line number of the criteria by which you want to search:\n" +
+                "1. Search by contact's name.\n" +
+                "2. Search by contact's phone number.\n" +
+                "3. Search by contact's email.\n" +
+                "4. Search by contact's company name.\n" +
+                "0. Finish searching.");
+    }
+
+    private void showActionsListForUpdate() {
+        System.out.println("\nEnter the appropriate line number of the action you want to perform:\n" +
+                "1. To update contact's name.\n" +
+                "2. To update contact's phone number label or phone number.\n" +
+                "3. To update contact's email label or email.\n" +
+                "4. To update contact's company name.\n" +
+                "5. To discard changes.\n" +
+                "0. To save changes.");
+    }
+
     private void showActionsForUpdatingContact() {
         System.out.println("\nEnter the appropriate line number of the action you want to perform:\n" +
                 "1. To update an existing item in the contact.\n" +
                 "2. To add a new item to the contact.\n" +
                 "3. To discard changes.\n" +
                 "0. To save changes.");
-    }
-
-    public void delete() {
-
-    }
-
-    private void showActionsListForCreate() {
-        System.out.println("\nEnter the appropriate line number of the action you want to perform:\n" +
-                "1. To enter contact's phone number label and phone number.\n" +
-                "2. To enter contact's email label and email.\n" +
-                "3. To enter contact's company name.\n" +
-                "0. To save contact.");
     }
 
     private void showPhoneNumberTypes() {
@@ -327,27 +333,6 @@ public class ContactService {
         int number = 0;
         for (EmailType emailType : EmailType.values()) {
             System.out.println(++number + ". " + emailType.getType());
-        }
-    }
-
-    private void showActionsListForSearch() {
-        System.out.println("\nEnter the appropriate line number of the criteria by which you want to search:\n" +
-                "1. Search by contact's name.\n" +
-                "2. Search by contact's phone number.\n" +
-                "3. Search by contact's email.\n" +
-                "4. Search by contact's company name.\n" +
-                "0. Finish searching.");
-    }
-
-    public void printSearchResult(TreeMap<IdAndContactNamePair, Contact> treeMap) {
-        if (treeMap == null) {
-            System.out.println("\nThere is no contact matching your input.");
-        } else {
-            System.out.println("\nSearching result:");
-            int itemNumber = 0;
-            for (IdAndContactNamePair pair : treeMap.navigableKeySet()) {
-                System.out.println(++itemNumber + ". " + pair.getContactName() + '\n' + treeMap.get(pair).toString());
-            }
         }
     }
 }

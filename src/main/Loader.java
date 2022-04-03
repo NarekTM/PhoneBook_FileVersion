@@ -1,6 +1,5 @@
 package main;
 
-import contacts.PhoneBookDB;
 import models.Contact;
 import models.pairs.IdAndContactNamePair;
 import service.ContactService;
