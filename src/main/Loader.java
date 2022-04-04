@@ -10,6 +10,11 @@ import static contacts.PhoneBookDB.showAllContacts;
 import static validator.GetValidInputs.*;
 
 public class Loader {
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
+    public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
+
     public static void start() {
         while (true) {
             showMenu();
@@ -37,9 +42,12 @@ public class Loader {
                     showAllContacts();
                     break;
                 case 0:
-                    System.out.println("**********************\n" +
-                            "*** See you again! ***\n" +
-                            "**********************");
+                    System.out.println('\n' + ANSI_PURPLE_BACKGROUND + ANSI_BLACK +
+                            "**********************" + ANSI_RESET);
+                    System.out.println(ANSI_PURPLE_BACKGROUND + ANSI_BLACK +
+                            "*** See you again! ***" + ANSI_RESET);
+                    System.out.println(ANSI_PURPLE_BACKGROUND + ANSI_BLACK +
+                            "**********************" + ANSI_RESET);
                     System.exit(0);
             }
         }

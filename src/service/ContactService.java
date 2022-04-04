@@ -149,7 +149,7 @@ public class ContactService {
 
     public void printSearchResult(TreeMap<IdAndContactNamePair, Contact> treeMap) {
         if (treeMap == null || treeMap.size() == 0) {
-            System.out.println("\nThere is no contact matching your input.");
+            System.err.println("There is no contact matching your input.\n");
         } else {
             System.out.println("\nSearching result:\n");
             int itemNumber = 0;
