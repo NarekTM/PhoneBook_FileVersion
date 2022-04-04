@@ -1,16 +1,17 @@
-package models;
+package model;
 
-public enum PhoneNumberType {
-    MOBILE(1, "Mobile"),
-    HOME(2, "Home"),
-    WORK(3, "Work"),
-    SCHOOL(4, "School"),
-    OTHER(5, "Other");
+public enum EmailType {
+    GMAIL(1, "Gmail"),
+    MAIL_RU(2, "Mail.ru"),
+    OUTLOOK(3, "Outlook"),
+    ICLOUD(4, "iCloud"),
+    YAHOO(5, "Yahoo"),
+    OTHER(6, "Other");
 
     private final int id;
     private final String type;
 
-    private PhoneNumberType(int id, String type) {
+    private EmailType(int id, String type) {
         this.id = id;
         this.type = type;
     }
@@ -23,8 +24,8 @@ public enum PhoneNumberType {
         return this.type;
     }
 
-    public static PhoneNumberType findById(int id) {
-        for (PhoneNumberType type : values()) {
+    public static EmailType findById(int id) {
+        for (EmailType type : values()) {
             if (type.id == id) {
                 return type;
             }

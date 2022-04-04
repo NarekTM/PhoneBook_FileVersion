@@ -1,6 +1,6 @@
-package models.pairs;
+package model.pair;
 
-import models.EmailType;
+import model.EmailType;
 
 public class EmailTypeAndEmailPair {
     private EmailType emailType;

@@ -1,6 +1,6 @@
-package models.pairs;
+package model.pair;
 
-import models.PhoneNumberType;
+import model.PhoneNumberType;
 
 public class PhoneNumberTypeAndPhoneNumberPair {
     private PhoneNumberType phoneNumberType;

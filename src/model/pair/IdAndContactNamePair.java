@@ -1,4 +1,4 @@
-package models.pairs;
+package model.pair;
 
 import java.util.ArrayList;
 

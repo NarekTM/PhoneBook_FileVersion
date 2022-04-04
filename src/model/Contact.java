@@ -1,7 +1,7 @@
-package models;
+package model;
 
-import models.pairs.EmailTypeAndEmailPair;
-import models.pairs.PhoneNumberTypeAndPhoneNumberPair;
+import model.pair.EmailTypeAndEmailPair;
+import model.pair.PhoneNumberTypeAndPhoneNumberPair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +66,7 @@ public class Contact {
     }
 
     public void replaceElementInEmails(EmailTypeAndEmailPair oldPair,
-                                             EmailTypeAndEmailPair newPair) {
+                                       EmailTypeAndEmailPair newPair) {
         int index = this.emails.indexOf(oldPair);
         this.emails.remove(oldPair);
         this.emails.add(index, newPair);

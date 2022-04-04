@@ -1,13 +1,14 @@
-package contacts;
+package service;
 
-import models.Contact;
-import models.pairs.EmailTypeAndEmailPair;
-import models.pairs.IdAndContactNamePair;
-import models.pairs.PhoneNumberTypeAndPhoneNumberPair;
+import model.Contact;
+import model.pair.*;
 
 import java.util.*;
 
-public class PhoneBookDB {
+import static main.Loader.ANSI_RED;
+import static main.Loader.ANSI_RESET;
+
+public class PhoneBookDBService {
     private static final TreeMap<IdAndContactNamePair, Contact> CONTACTS = new TreeMap<>();
 
     public static TreeMap<IdAndContactNamePair, Contact> getContacts() {
@@ -18,8 +19,8 @@ public class PhoneBookDB {
         CONTACTS.put(idAndContactNamePair, contact);
     }
 
-    public static void replaceEntryInContacts (IdAndContactNamePair oldPair, Contact oldContact,
-                                               IdAndContactNamePair newPair, Contact newContact) {
+    public static void replaceEntryInContacts(IdAndContactNamePair oldPair, Contact oldContact,
+                                              IdAndContactNamePair newPair, Contact newContact) {
         CONTACTS.remove(oldPair, oldContact);
         CONTACTS.put(newPair, newContact);
     }
@@ -76,10 +77,14 @@ public class PhoneBookDB {
     }
 
     public static void showAllContacts() {
-        int number = 0;
-        System.out.println("\nAll contacts:\n");
-        for (Map.Entry<IdAndContactNamePair, Contact> entry : CONTACTS.entrySet()) {
-            System.out.println(++number + ". " + entry.getKey().getContactName() + "\n" + entry.getValue().toString());
+        if (CONTACTS.size() == 0) {
+            System.out.println(ANSI_RED + "\nThere is no any contact in your PhoneBook." + ANSI_RESET);
+        } else {
+            int number = 0;
+            System.out.println("\nAll contacts:\n");
+            for (Map.Entry<IdAndContactNamePair, Contact> entry : CONTACTS.entrySet()) {
+                System.out.println(++number + ". " + entry.getKey().getContactName() + "\n" + entry.getValue().toString());
+            }
         }
     }
 }

@@ -1,17 +1,21 @@
 package main;
 
-import models.Contact;
-import models.pairs.IdAndContactNamePair;
+import controller.ContactController;
+import controller.impl.ContactControllerImpl;
+import model.Contact;
+import model.pair.IdAndContactNamePair;
 import service.ContactService;
 
 import java.util.TreeMap;
 
-import static contacts.PhoneBookDB.showAllContacts;
+import static service.PhoneBookDBService.showAllContacts;
 import static validator.GetValidInputs.*;
 
 public class Loader {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
     public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
     public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
 
@@ -21,22 +25,23 @@ public class Loader {
 
             int menuChoice = validChoice(0, 5);
 
+            ContactController contactController = new ContactControllerImpl();
             ContactService contactService = new ContactService();
 
             switch (menuChoice) {
                 case 1:
                     String contactName = validContactName();
-                    contactService.create(contactName);
+                    contactController.create(contactName);
                     break;
                 case 2:
-                    TreeMap<IdAndContactNamePair, Contact> searchResult = contactService.search();
+                    TreeMap<IdAndContactNamePair, Contact> searchResult = contactController.search();
                     contactService.printSearchResult(searchResult);
                     break;
                 case 3:
-                    contactService.update();
+                    contactController.update();
                     break;
                 case 4:
-                    contactService.delete();
+                    contactController.delete();
                     break;
                 case 5:
                     showAllContacts();
