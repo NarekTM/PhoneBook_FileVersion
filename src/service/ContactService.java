@@ -1,16 +1,9 @@
 package service;
 
-import models.Contact;
-import models.EmailType;
-import models.PhoneNumberType;
-import models.pairs.EmailTypeAndEmailPair;
-import models.pairs.IdAndContactNamePair;
-import models.pairs.PhoneNumberTypeAndPhoneNumberPair;
+import models.*;
+import models.pairs.*;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 import static validator.GetValidInputs.*;
 import static contacts.PhoneBookDB.*;
