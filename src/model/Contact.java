@@ -3,10 +3,11 @@ package model;
 import model.pair.EmailTypeAndEmailPair;
 import model.pair.PhoneNumberTypeAndPhoneNumberPair;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Contact {
+public class Contact implements Serializable {
     private List<PhoneNumberTypeAndPhoneNumberPair> phoneNumbers = new ArrayList<>();
     private String companyName;
     private List<EmailTypeAndEmailPair> emails = new ArrayList<>();

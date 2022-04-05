@@ -2,7 +2,9 @@ package model.pair;
 
 import model.EmailType;
 
-public class EmailTypeAndEmailPair {
+import java.io.Serializable;
+
+public class EmailTypeAndEmailPair implements Serializable {
     private EmailType emailType;
     private String email;
 

@@ -8,6 +8,7 @@ import service.ContactService;
 
 import java.util.TreeMap;
 
+import static service.PhoneBookDBService.saveContactsToFile;
 import static service.PhoneBookDBService.showAllContacts;
 import static validator.GetValidInputs.*;
 
@@ -47,12 +48,15 @@ public class Loader {
                     showAllContacts();
                     break;
                 case 0:
+                    saveContactsToFile();
+
                     System.out.println('\n' + ANSI_PURPLE_BACKGROUND + ANSI_BLACK +
                             "**********************" + ANSI_RESET);
                     System.out.println(ANSI_PURPLE_BACKGROUND + ANSI_BLACK +
                             "*** See you again! ***" + ANSI_RESET);
                     System.out.println(ANSI_PURPLE_BACKGROUND + ANSI_BLACK +
                             "**********************" + ANSI_RESET);
+
                     System.exit(0);
             }
         }

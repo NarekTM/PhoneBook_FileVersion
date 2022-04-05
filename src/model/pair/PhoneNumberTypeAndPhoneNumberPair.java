@@ -2,7 +2,9 @@ package model.pair;
 
 import model.PhoneNumberType;
 
-public class PhoneNumberTypeAndPhoneNumberPair {
+import java.io.Serializable;
+
+public class PhoneNumberTypeAndPhoneNumberPair implements Serializable {
     private PhoneNumberType phoneNumberType;
     private String phoneNumber;
 

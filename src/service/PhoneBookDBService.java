@@ -3,13 +3,16 @@ package service;
 import model.Contact;
 import model.pair.*;
 
+import java.io.*;
 import java.util.*;
 
 import static main.Loader.ANSI_RED;
 import static main.Loader.ANSI_RESET;
 
 public class PhoneBookDBService {
-    private static final TreeMap<IdAndContactNamePair, Contact> CONTACTS = new TreeMap<>();
+    private static final TreeMap<IdAndContactNamePair, Contact> CONTACTS = getContactsFromFile();
+
+    public static final String FILE_PATH = "src\\resources\\Contacts.txt";
 
     public static TreeMap<IdAndContactNamePair, Contact> getContacts() {
         return CONTACTS;
@@ -77,7 +80,7 @@ public class PhoneBookDBService {
     }
 
     public static void showAllContacts() {
-        if (CONTACTS.size() == 0) {
+        if (CONTACTS == null || CONTACTS.size() == 0) {
             System.out.println(ANSI_RED + "\nThere is no any contact in your PhoneBook." + ANSI_RESET);
         } else {
             int number = 0;
@@ -86,5 +89,33 @@ public class PhoneBookDBService {
                 System.out.println(++number + ". " + entry.getKey().getContactName() + "\n" + entry.getValue().toString());
             }
         }
+    }
+
+    public static void saveContactsToFile() {
+        FileOutputStream fileOutputStream;
+        ObjectOutputStream objectOutputStream;
+        try {
+            fileOutputStream = new FileOutputStream(FILE_PATH);
+            objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(CONTACTS);
+            objectOutputStream.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public static TreeMap<IdAndContactNamePair, Contact> getContactsFromFile() {
+        FileInputStream fileInputStream;
+        ObjectInputStream objectInputStream;
+        TreeMap<IdAndContactNamePair, Contact> treeMap = new TreeMap<>();
+        try {
+            fileInputStream = new FileInputStream(FILE_PATH);
+            objectInputStream = new ObjectInputStream(fileInputStream);
+            treeMap = (TreeMap<IdAndContactNamePair, Contact>) objectInputStream.readObject();
+        } catch (IOException | ClassNotFoundException ex) {
+            //this catch only for first run
+        }
+        return treeMap;
     }
 }

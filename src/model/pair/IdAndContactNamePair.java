@@ -1,8 +1,9 @@
 package model.pair;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class IdAndContactNamePair implements Comparable<IdAndContactNamePair> {
+public class IdAndContactNamePair implements Comparable<IdAndContactNamePair>, Serializable {
     private String contactName;
     private final int id;
     private static final ArrayList<Integer> ID_LIST = new ArrayList<>();
