@@ -92,13 +92,9 @@ public class PhoneBookDBService {
     }
 
     public static void saveContactsToFile() {
-        FileOutputStream fileOutputStream;
-        ObjectOutputStream objectOutputStream;
-        try {
-            fileOutputStream = new FileOutputStream(FILE_PATH);
-            objectOutputStream = new ObjectOutputStream(fileOutputStream);
+        try (FileOutputStream fileOutputStream = new FileOutputStream(FILE_PATH);
+             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
             objectOutputStream.writeObject(CONTACTS);
-            objectOutputStream.close();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -106,15 +102,12 @@ public class PhoneBookDBService {
 
     @SuppressWarnings("unchecked")
     public static TreeMap<IdAndContactNamePair, Contact> getContactsFromFile() {
-        FileInputStream fileInputStream;
-        ObjectInputStream objectInputStream;
         TreeMap<IdAndContactNamePair, Contact> treeMap = new TreeMap<>();
-        try {
-            fileInputStream = new FileInputStream(FILE_PATH);
-            objectInputStream = new ObjectInputStream(fileInputStream);
+        try (FileInputStream fileInputStream = new FileInputStream(FILE_PATH);
+             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
             treeMap = (TreeMap<IdAndContactNamePair, Contact>) objectInputStream.readObject();
         } catch (IOException | ClassNotFoundException ex) {
-            //this catch only for first run
+            //unreachable catch
         }
         return treeMap;
     }
